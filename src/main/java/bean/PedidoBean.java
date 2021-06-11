@@ -3,49 +3,72 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package bean;
 
+import ejb.PedidoFacade;
 import java.io.Serializable;
 import java.util.Date;
-import javax.ejb.Timeout;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.annotation.FacesConfig;
+import javax.inject.Named;
+import model.Pedido;
 
 /**
  *
  * @author jonat
  */
-@Entity
-public class Pedido implements Serializable {
+@FacesConfig(version = FacesConfig.Version.JSF_2_3)
+@Named
+@SessionScoped
+public class PedidoBean implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EJB
+    private PedidoFacade ejbPedido;
+    private List<Pedido> list;
     private int numero;
 
     private String fecha;
+    private int temp;
     private String nombreCliente;
     private String observacion;
     private double subtotal;
     private double iva;
     private double total;
-   
 
-    public Pedido() {
+    public PedidoBean() {
     }
 
-    public Pedido(String fecha, String nombreCliente, String observacion, double subtotal, double iva, double total) {
+   public String add() {
 
-        this.fecha = fecha;
-        this.nombreCliente = nombreCliente;
-        this.observacion = observacion;
-        this.subtotal = subtotal;
-        this.iva = iva;
-        this.total = total;
+        ejbPedido.crear(new Pedido(fecha, nombreCliente, observacion, subtotal, iva, total));
+       
+        list = ejbPedido.buscarTodo();
+        return null;
+    }
+
+
+    @PostConstruct
+    public void init() {
+        list = ejbPedido.buscarTodo();
+    }
+
+    public PedidoFacade getEjbPedido() {
+        return ejbPedido;
+    }
+
+    public void setEjbPedido(PedidoFacade ejbPedido) {
+        this.ejbPedido = ejbPedido;
+    }
+
+    public List<Pedido> getList() {
+        return list;
+    }
+
+    public void setList(List<Pedido> list) {
+        this.list = list;
     }
 
     public int getNumero() {
