@@ -46,7 +46,7 @@ public class TarjetasBean implements Serializable {
         ejbTarjeta.crear(new Tarjeta(123456, "lucas", "2024-03-03", 342, 124));
         ejbTarjeta.crear(new Tarjeta(123234, "pedro", "2025-03-03", 753, 533));
         ejbTarjeta.crear(new Tarjeta(1234354, "juan", "20226-03-03", 6534, 124));
-        ejbTarjeta.crear(new Tarjeta(1234354, "matias", "20226-03-03", 6534, 124));
+   
         
     }
 }

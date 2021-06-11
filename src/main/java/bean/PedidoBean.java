@@ -52,6 +52,8 @@ public class PedidoBean implements Serializable {
 
     @PostConstruct
     public void init() {
+        numero=4;
+        iva=12;
         list = ejbPedido.buscarTodo();
     }
 
