@@ -7,7 +7,9 @@ package ejb;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import model.Pedido;
 
 /**
@@ -30,6 +32,18 @@ public class PedidoFacade extends AbstractFacade<Pedido>{
     }
     
     
-    
+    public Pedido obtenerPedido(String id) throws Exception {
+        try {
+            String jpl = "select p from Pedido p Where p.numero =:numero ";
+            Query q = em.createQuery(jpl, Pedido.class);
+            q.setParameter("numero", id);
+            return (Pedido) q.getSingleResult();
+
+        } catch (NoResultException e) {
+            //System.out.println(e.getMessage());
+            throw new Exception("No se encontraron pedidos");
+        }
+        //return null;
+    }
     
 }

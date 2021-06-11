@@ -20,33 +20,36 @@ import model.Pedido;
  *
  * @author jonat
  */
-
 @FacesConfig(version = FacesConfig.Version.JSF_2_3)
 @Named
 @SessionScoped
-public class ComidaBean  implements Serializable{
+public class ComidaBean implements Serializable {
+
     @EJB
     private ComidaFacade ejbComida;
-    
+    private double total;
     private String nombre;
     private Double precio;
     private List<Comida> list;
     private Pedido pedido;
+    private Double subtotal;
 
     public ComidaBean() {
-    
-    }
 
+    }
 
     @PostConstruct
-    public void init(){
-       list=ejbComida.buscarTodo();
+    public void init() {
+        list = ejbComida.buscarTodo();
+        total = 0;
+        subtotal = 0.0;
+
     }
 
-    
-     public String add() {
-
+    public String add() {
         ejbComida.crear(new Comida(nombre, precio, pedido));
+        total += precio;
+        subtotal=total/0.12;
         list = ejbComida.buscarTodo();
         return null;
     }
@@ -61,6 +64,14 @@ public class ComidaBean  implements Serializable{
 
     public String getNombre() {
         return nombre;
+    }
+
+    public Double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(Double subtotal) {
+        this.subtotal = subtotal;
     }
 
     public void setNombre(String nombre) {
@@ -87,11 +98,16 @@ public class ComidaBean  implements Serializable{
         return pedido;
     }
 
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
 
-     
-     
-     
 }
