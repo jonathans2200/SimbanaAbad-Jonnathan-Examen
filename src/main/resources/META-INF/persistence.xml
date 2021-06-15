@@ -3,7 +3,11 @@
   <!-- Define Persistence Unit -->
   <persistence-unit name="examen">
     <jta-data-source>examen</jta-data-source>
+    <class>model.Comida</class>
+    <class>model.Pedido</class>
+    <class>model.Tarjeta</class>
     <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

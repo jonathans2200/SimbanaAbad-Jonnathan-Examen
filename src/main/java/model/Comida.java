@@ -6,14 +6,15 @@
 package model;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
 
 /**
  *
@@ -27,15 +28,11 @@ public class Comida implements Serializable {
     private int codigo;
     private String nombre;
     private Double precio;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Pedido pedido;
+
     public Comida() {
-    }
-
-    public Comida(String nombre, Double precio,Pedido pedido) {
-
-        this.nombre = nombre;
-        this.precio = precio;
     }
 
     public int getCodigo() {
@@ -69,6 +66,5 @@ public class Comida implements Serializable {
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
-
 
 }

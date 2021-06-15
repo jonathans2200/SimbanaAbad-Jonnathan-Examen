@@ -16,33 +16,33 @@ and open the template in the editor.
     </head>
     <body>
         <h3>LISTA DE PEDIDOS</h3>
+        <h:outputLabel value="BUSCAR PEDIDO" />
+
+        <h:inputText value="#{pedidoBean.buscar}"/>
+        <h:commandButton action="#{pedidoBean.agregarComida()}" value="BUSCAR" />
+        <h3>#{pedidoBean.tarjeta}</h3>
         <h:form>
-        <h:dataTable value="#{pedidoBean.list}" var="c">
-            <h:column>
-                <f:facet name="header">Codigo</f:facet>
-                    #{c.numero}
-            </h:column>
-            <h:column>
-                <f:facet name="header">FEcha</f:facet>
-                    #{c.fecha}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Cliente</f:facet>
-                    #{c.nombreCliente}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Observacion</f:facet>
-                    #{c.observacion}
-            </h:column>
-            <h:column>
-                <f:facet name="header">total</f:facet>
-                    #{c.total}
-            </h:column>  
-              <h:column>
-                <f:facet name="header">DETALLE</f:facet>
-                    #{c.total}
-            </h:column> 
-        </h:dataTable>
-            </h:form>
+            <h:dataTable value="#{pedidoBean.listaPedidos}" var="c">
+
+                <h:column>
+                    <f:facet name="header"># PEDIDO</f:facet>
+                        #{c.numero}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">TARJETA</f:facet>
+                        #{c.tarjeta.numeroTarjeta}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">CLIENTE</f:facet>
+                        #{c.nombreCliente}
+                </h:column>
+               
+                <h:column>
+                    <f:facet name="header">TOTAL</f:facet>
+                        #{c.total}
+                </h:column>  
+
+            </h:dataTable>
+        </h:form>
     </body>
 </html>

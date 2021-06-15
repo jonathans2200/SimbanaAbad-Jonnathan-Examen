@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    </head>
+    <body>
+        <h:form>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <h3>PEDIDOS</h3>     
+                    </div>
+                    <div class="col-6">
+                        <h3>TARJETAS</h3>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <li>
+                                <h:outputLabel value="Nombres del cliente" />
+                                <h:inputText value="#{pedidoBean.pedido.nombreCliente}" />
+                            </li>
+                            <li>
+                                <h:outputLabel value="FECHA" />
+                                <h:inputText value="#{pedidoBean.pedido.fecha}" />
+                            </li>
+
+                            <li>
+                                <h:outputLabel value="Observaciones" />
+                                <h:inputTextarea value="#{pedidoBean.pedido.observacion}" />
+                            </li>
+                        </ul>  
+                    </div>
+                    <div class="col">
+                        <h:outputLabel value="BUSCAR TARJETA" />
+
+                        <h:inputText value="#{pedidoBean.buscar}"/>
+                        <h:commandButton action="#{pedidoBean.buscarTarjeta()}" value="BUSCAR" />
+                        <h3>#{pedidoBean.tarjeta}</h3>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h3>INGRESAR ALIMENTOS</h3>
+                        <div class="row">
+                            <div class="col-2">
+                                <h:outputLabel value="Nombres comida" />
+                                <h:inputText value="#{pedidoBean.nombre}">
+                                </h:inputText>   
+                            </div>
+                            <div class="col-2">
+                                <h:outputLabel value="Precio unitario" />
+                                <h:inputText id="nuevo" value="#{pedidoBean.precio}">
+
+                                </h:inputText>
+                            </div>
+                            <div class="col-2">
+                                <h:commandLink action="#{pedidoBean.agregarComida()}" value="Agregar" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <h3>LISTADO DE TARJETAS</h3>
+                        <h:commandButton action="#{pedidoBean.crearTarjetas()}" value="CREAR TARJETA" />
+                        <h:dataTable value="#{pedidoBean.listaTarjeta}" var="c">
+                            <h:column>
+                                <f:facet name="header">NUMERO DE TARJETA</f:facet>
+                                    #{c.numeroTarjeta}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">NOMBRE TITULAR</f:facet>
+                                    #{c.nombreTitular}
+                            </h:column>
+
+
+                        </h:dataTable>
+                    </div>
+                </div>
+                <div class="row">
+                    <h4>VALORES:</h4>
+
+                </div>
+
+                <div class="row"> 
+                    <h:outputLabel value="SUBTOTAL: " />
+                    <h:outputLabel value="#{pedidoBean.total}"/>
+
+                </div>
+                <div class="row">
+                    <h:outputLabel value="IVA: " />
+                    <h:outputLabel value="#{pedidoBean.iva}"/>
+
+                </div>
+                <div class="row">
+                    <h:outputLabel value="TOTAL :"  />
+                    <h:outputLabel value="#{pedidoBean.subtotal}"/>
+
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h4>PROCEDER AL PAGO:</h4>
+
+                        <h:commandButton action="#{pedidoBean.realiarPedido()}" value="Pagar" />
+                    </div>
+                    <div class="col">
+                        <h3>LISTADO DE PEDIDOS ADJUNTOS</h3>
+                        <h:dataTable value="#{pedidoBean.listaPedidos}" var="c">
+
+                            <h:column>
+                                <f:facet name="header"># PEDIDO</f:facet>
+                                    #{c.numero}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">TARJETA</f:facet>
+                                    #{c.tarjeta.numeroTarjeta}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">CLIENTE</f:facet>
+                                    #{c.nombreCliente}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">TOTAL</f:facet>
+                                    #{c.total}
+                            </h:column>  
+
+                        </h:dataTable>
+                    </div>
+                </div>
+
+            </div>
+        </h:form>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>

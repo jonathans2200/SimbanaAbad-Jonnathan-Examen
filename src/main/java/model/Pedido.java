@@ -6,9 +6,13 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Timeout;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,19 +37,14 @@ public class Pedido implements Serializable {
     private double subtotal;
     private double iva;
     private double total;
-   
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Comida> comidas;
+
+    @ManyToOne
+    private Tarjeta tarjeta;
 
     public Pedido() {
-    }
-
-    public Pedido(String fecha, String nombreCliente, String observacion, double subtotal, double iva, double total) {
-
-        this.fecha = fecha;
-        this.nombreCliente = nombreCliente;
-        this.observacion = observacion;
-        this.subtotal = subtotal;
-        this.iva = iva;
-        this.total = total;
     }
 
     public int getNumero() {
@@ -66,6 +65,14 @@ public class Pedido implements Serializable {
 
     public String getNombreCliente() {
         return nombreCliente;
+    }
+
+    public Tarjeta getTarjeta() {
+        return tarjeta;
+    }
+
+    public void setTarjeta(Tarjeta tarjeta) {
+        this.tarjeta = tarjeta;
     }
 
     public void setNombreCliente(String nombreCliente) {
@@ -102,6 +109,18 @@ public class Pedido implements Serializable {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public List<Comida> getComidas() {
+        return comidas;
+    }
+
+    public void setComidas(List<Comida> comidas) {
+        this.comidas = comidas;
+    }
+
+    public void setTarjeta(int auxCodigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

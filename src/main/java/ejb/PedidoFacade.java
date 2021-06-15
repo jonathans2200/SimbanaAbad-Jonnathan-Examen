@@ -32,6 +32,8 @@ public class PedidoFacade extends AbstractFacade<Pedido>{
     }
     
     
+
+    
     public Pedido obtenerPedido(String id) throws Exception {
         try {
             String jpl = "select p from Pedido p Where p.numero =:numero ";
